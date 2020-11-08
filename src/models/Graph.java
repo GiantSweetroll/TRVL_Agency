@@ -6,7 +6,7 @@ import java.util.List;
 public class Graph
 {
     //Fields
-    private List<ArrayList<Integer>> distMatrix;
+    private List<ArrayList<Double>> distMatrix;
     private List<String> destNames;
     private List<ArrayList<Double>> costMatrix;
 
@@ -26,66 +26,35 @@ public class Graph
     public void addDestination(Destination dest)
     {
         this.destNames.add(dest.getName());
-        this.distMatrix.add(new ArrayList<>());
-        this.costMatrix.add(new ArrayList<>());
+
+        int destSize = this.destNames.size();
+        this.distMatrix.add(new ArrayList<>(destSize));
+        this.costMatrix.add(new ArrayList<>(destSize));
     }
 
     /**
-     * Configure the destination at the selected index.
-     * @param index - location of the destination in the array
-     * @param distance - the distance matrix of the destination. Size must be the same as the amount of destinations.
-     * @param cost - the cost matrix of the destination. Size must be the same as the amount of destinations.
+     * Configure the distance between 2 destinations.
+     * @param source - index of the source destination. This index determines which sublist to be manipulated in the distance matrix.
+     * @param dest - index of the target destination. This index determines which element to be manipulated in the sublist.
+     * @param distance - the new distance value between the two destinations.
      */
-    public void configureDest(int index, ArrayList<Integer> distance, ArrayList<Double> cost)
+    public void setDistance(int source, int dest, double distance)
     {
-        int destSize = this.destNames.size();
-        //Check if index exists and distance and cost are of the correct size
-        if (index <= destSize-1 && index >= 0 && distance.size() == destSize && cost.size() == destSize)
-        {
-            this.distMatrix.set(index, distance);
-            this.costMatrix.set(index, cost);
-        }
-        else
-        {
-            throw new ArrayIndexOutOfBoundsException();
-        }
+        ArrayList<Double> distSubMatrix = this.distMatrix.get(source);
+        distSubMatrix.set(dest, distance);
+        this.distMatrix.set(source, distSubMatrix);
     }
 
     /**
-     * Configure the distance matrix in the selected index
-     * @param index - index of the distance matrix to be updated.
-     * @param distance - the new distance matrix to replace it.
+     * Configure the cost between 2 destinations.
+     * @param source - index of the source destination. This index determines which sublist to be manipulated in the cost matrix.
+     * @param dest - index of the target destination. This index determines which element to be manipulated in the sublist.
+     * @param cost - the new cost between the two destinations.
      */
-    public void configureDistance(int index, ArrayList<Integer> distance)
+    public void setCost(int source, int dest, double cost)
     {
-        int destSize = this.destNames.size();
-        //Check if index exists and if distance is of the correct size
-        if (index <= destSize-1 && index >= 0 && distance.size() == destSize)
-        {
-            this.distMatrix.set(index, distance);
-        }
-        else
-        {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-    }
-
-    /**
-     * Configure the cost matrix in the selected index
-     * @param index - index of the distance matrix to be updated.
-     * @param cost - the new cost matrix to replace it.
-     */
-    public void configureCost(int index, ArrayList<Integer> cost)
-    {
-        int destSize = this.destNames.size();
-        //Check if index exists and if cost is of the correct size
-        if (index <= destSize-1 && index >= 0 && cost.size() == destSize)
-        {
-            this.distMatrix.set(index, cost);
-        }
-        else
-        {
-            throw new ArrayIndexOutOfBoundsException();
-        }
+        ArrayList<Double> costSubMatrix = this.costMatrix.get(source);
+        costSubMatrix.set(dest, cost);
+        this.distMatrix.set(source, costSubMatrix);
     }
 }
