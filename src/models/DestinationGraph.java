@@ -40,8 +40,13 @@ public class DestinationGraph
         }
 
         //Add sub matrix for the new destination
-        this.distMatrix.add(new ArrayList<>(destSize));
-        this.costMatrix.add(new ArrayList<>(destSize));
+        this.distMatrix.add(new ArrayList<>());
+        this.costMatrix.add(new ArrayList<>());
+        for (int i=0; i<destSize; i++)
+        {
+            this.distMatrix.get(destSize-1).add(0d);
+            this.costMatrix.get(destSize-1).add(0d);
+        }
     }
 
     /**
@@ -98,7 +103,7 @@ public class DestinationGraph
     {
         ArrayList<Double> costSubMatrix = this.costMatrix.get(source);
         costSubMatrix.set(dest, cost);
-        this.distMatrix.set(source, costSubMatrix);
+        this.costMatrix.set(source, costSubMatrix);
     }
 
     /**
@@ -157,5 +162,34 @@ public class DestinationGraph
         }
 
         return arr;
+    }
+
+    /**
+     * Get the list of destination names
+     * @return an object of List<String>
+     */
+    public List<String> getDestinationNames()
+    {
+        return this.destNames;
+    }
+
+    public static void main(String[] args)
+    {
+        DestinationGraph dg = new DestinationGraph();
+        dg.addDestination(new Destination("Jakarta"));
+        dg.addDestination(new Destination("Surabaya"));
+
+        dg.setDistance(0, 1, 15);
+        dg.setCost(0, 1, 2000);
+        dg.setDistance(1, 0, 10);
+
+        for (ArrayList<Double> sub : dg.getDistanceMatrix())
+        {
+            for (Double d : sub)
+            {
+                System.out.print(d + " ");
+            }
+            System.out.println();
+        }
     }
 }
