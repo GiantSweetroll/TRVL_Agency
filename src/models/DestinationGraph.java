@@ -3,9 +3,6 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A class that represents a Graph for both distances and costs for all destinations using adjacency matrix
- */
 public class DestinationGraph
 {
     //Fields
