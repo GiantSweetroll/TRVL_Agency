@@ -19,9 +19,10 @@ public class Dijkstra
      * @param start - the start index. The algorithm will calculate the shortest distance of all vertices to this point.
      * @return an array of double with the shortest distances from the start point to all other points.
      */
-    public double[] compute(int start)
+    public double[][] compute(int start)
     {
-        double[] shortestPaths = new double[this.VERTEX_COUNT];      //Will be used for output. It will contain the shortest path from start to all other vertices.
+        double[][] pathTable = new double[2][this.VERTEX_COUNT];     //Will be used for output. It will contain the shortest path from start to all other vertices as well as the previous node.
+        double[] shortestPaths = new double[this.VERTEX_COUNT];      //Contain the shortest path from start to all other vertices.
         boolean[] pathSet = new boolean[this.VERTEX_COUNT];          //To check if vertex is included in the shortest path tree or the shortest distance from start to that vertex is set.
 
         //Set all distances to MAX value to represent infinity, and set all values of pathSet to false.
@@ -33,6 +34,7 @@ public class Dijkstra
 
         //set the distance from source to source as 0
         shortestPaths[start] = 0;
+        pathTable[1][start] = -1;
 
         //Find shortest path to the other vertices
         for (int i = 0; i < this.VERTEX_COUNT - 1; i++)
@@ -57,11 +59,15 @@ public class Dijkstra
                         shortestPaths[minIndex] + this.GRAPH[minIndex][a] < shortestPaths[a])
                 {
                     shortestPaths[a] = shortestPaths[minIndex] + this.GRAPH[minIndex][a];
+                    pathTable[1][a] = minIndex;
                 }
             }
         }
 
-        return shortestPaths;
+        //Add shortest path data
+        pathTable[0] = shortestPaths;
+
+        return pathTable;
     }
 
     //Private Methods

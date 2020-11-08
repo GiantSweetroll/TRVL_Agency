@@ -1,10 +1,9 @@
 package backend;
 
-<<<<<<< Updated upstream
-=======
 import models.Destination;
->>>>>>> Stashed changes
 import models.DestinationGraph;
+
+import java.util.ArrayList;
 
 /**
  * Created by user on 10/28/2020.
@@ -17,7 +16,7 @@ public class Services
      * @param reference - index of the source destination.
      * @return an array of double that signifies the shortest distance from that destination to the source destination.
      */
-    public double[] getShortestDistances(DestinationGraph destinations, int reference)
+    public double[][] getShortestDistances(DestinationGraph destinations, int reference)
     {
         Dijkstra d = new Dijkstra(destinations.getDistanceMatrixArray());
         return d.compute(reference);
@@ -29,7 +28,7 @@ public class Services
      * @param reference - index of the source destination.
      * @return an array of double that signifies the lowest cost from that destination to the source destination.
      */
-    public double[] getCheapestCosts(DestinationGraph destinations, int reference)
+    public double[][] getCheapestCosts(DestinationGraph destinations, int reference)
     {
         Dijkstra d = new Dijkstra(destinations.getCostMatrixArray());
         return d.compute(reference);
@@ -37,13 +36,34 @@ public class Services
 
     public static void main (String args[])
     {
-<<<<<<< Updated upstream
-        System.out.println("Hello dfdfgb");
-=======
         Services s = new Services();
         DestinationGraph dg = new DestinationGraph();
         dg.addDestination(new Destination("Jakarta"));
         dg.addDestination(new Destination("Surabaya"));
->>>>>>> Stashed changes
+        dg.addDestination(new Destination("Jogja"));
+
+        dg.setDistance(0, 1, 15);
+        dg.setDistance(1, 0, 10);
+        dg.setDistance(2, 0, 30);
+        dg.setDistance(0, 2, 17);
+        dg.setDistance(2, 1, 12);
+
+        for (ArrayList<Double> sub : dg.getDistanceMatrix())
+        {
+            for (Double d : sub)
+            {
+                System.out.print(d + " ");
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+
+        double[][] pathTable = s.getShortestDistances(dg, 1 );
+
+        for (int i=0; i<dg.getDestinationNames().size(); i++)
+        {
+            System.out.println(i + " " + pathTable[0][i] + " " + pathTable[1][i]);
+        }
     }
 }
