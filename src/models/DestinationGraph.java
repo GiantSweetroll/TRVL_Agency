@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Graph
+public class DestinationGraph
 {
     //Fields
     private List<ArrayList<Double>> distMatrix;
@@ -11,7 +11,7 @@ public class Graph
     private List<ArrayList<Double>> costMatrix;
 
     //Constructor
-    public Graph()
+    public DestinationGraph()
     {
         this.distMatrix = new ArrayList<>();
         this.costMatrix = new ArrayList<>();
