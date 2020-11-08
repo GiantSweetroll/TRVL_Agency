@@ -1,5 +1,9 @@
 package backend;
 
+<<<<<<< Updated upstream
+=======
+import models.Destination;
+>>>>>>> Stashed changes
 import models.DestinationGraph;
 
 /**
@@ -33,6 +37,13 @@ public class Services
 
     public static void main (String args[])
     {
+<<<<<<< Updated upstream
         System.out.println("Hello dfdfgb");
+=======
+        Services s = new Services();
+        DestinationGraph dg = new DestinationGraph();
+        dg.addDestination(new Destination("Jakarta"));
+        dg.addDestination(new Destination("Surabaya"));
+>>>>>>> Stashed changes
     }
 }
