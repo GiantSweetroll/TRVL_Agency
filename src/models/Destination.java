@@ -18,7 +18,7 @@ public class Destination
      *
      * @param name
      */
-    public Destination(String name, double cost)
+    public Destination(String name)
     {
         this.name = name;
     }
