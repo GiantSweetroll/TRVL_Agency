@@ -57,4 +57,62 @@ public class DestinationGraph
         costSubMatrix.set(dest, cost);
         this.distMatrix.set(source, costSubMatrix);
     }
+
+    /**
+     * Get the distance matrix in a form of a List of ArrayLists
+     * @return a List<ArrayList<Double>> object.
+     */
+    public List<ArrayList<Double>> getDistanceMatrix()
+    {
+        return this.distMatrix;
+    }
+
+    /**
+     * Get the distance matrix in a form of a 2D array
+     * @return a 2D array of double
+     */
+    public double[][] getDistanceMatrixArray()
+    {
+        int size = this.distMatrix.size();
+        double[][] arr = new double[size][size];
+
+        for (int i=0; i<size; i++)
+        {
+            for (int a=0; a<size; a++)
+            {
+                arr[i][a] = this.distMatrix.get(i).get(a);
+            }
+        }
+
+        return arr;
+    }
+
+    /**
+     * Get the cost matrix in a form of a List of ArrayLists
+     * @return a List<ArrayList<Double>> object.
+     */
+    public List<ArrayList<Double>> getCostMatrix()
+    {
+        return this.costMatrix;
+    }
+
+    /**
+     * Get the cost matrix in a form of a 2D array
+     * @return a 2D array of double
+     */
+    public double[][] getCostMatrixArray()
+    {
+        int size = this.costMatrix.size();
+        double[][] arr = new double[size][size];
+
+        for (int i=0; i<size; i++)
+        {
+            for (int a=0; a<size; a++)
+            {
+                arr[i][a] = this.costMatrix.get(i).get(a);
+            }
+        }
+
+        return arr;
+    }
 }
