@@ -3,6 +3,9 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class that represents a graph for both distance and cost between destinations using adjacency matrix.
+ */
 public class DestinationGraph
 {
     //Fields
@@ -28,8 +31,48 @@ public class DestinationGraph
         this.destNames.add(dest.getName());
 
         int destSize = this.destNames.size();
+
+        //Update all other destinations to adjust to new destination
+        for (int i=0; i<destSize-1; i++)
+        {
+            this.distMatrix.get(i).add(0d);
+            this.costMatrix.get(i).add(0d);
+        }
+
+        //Add sub matrix for the new destination
         this.distMatrix.add(new ArrayList<>(destSize));
         this.costMatrix.add(new ArrayList<>(destSize));
+    }
+
+    /**
+     * Remove a destination by its index in the adjacency matrix
+     * @param index
+     */
+    public void removeDestination(int index)
+    {
+        this.destNames.remove(index);
+
+        //Remove sub matrix of the destination
+        this.distMatrix.remove(index);
+        this.costMatrix.remove(index);
+
+        //Update references in the other destinations
+        int destSize = this.destNames.size();
+        for (int i=0; i<destSize; i++)
+        {
+            this.distMatrix.get(i).remove(index);
+            this.costMatrix.get(i).remove(index);
+        }
+    }
+
+    /**
+     * Removes a destination by its name. If multiple destinations share the first name, it will remove the first occurrence.
+     * @param name
+     */
+    public void removeDestination(String name)
+    {
+        int index = this.destNames.indexOf(name);
+        this.removeDestination(index);
     }
 
     /**
