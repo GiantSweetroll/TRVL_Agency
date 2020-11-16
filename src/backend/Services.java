@@ -36,7 +36,6 @@ public class Services
 
     public static void main (String args[])
     {
-        Services s = new Services();
         DestinationGraph dg = new DestinationGraph();
         dg.addDestination(new Destination("Jakarta"));
         dg.addDestination(new Destination("Surabaya"));
@@ -59,7 +58,7 @@ public class Services
 
         System.out.println();
 
-        double[][] pathTable = s.getShortestDistances(dg, 1 );
+        double[][] pathTable = Services.getShortestDistances(dg, 1 );
 
         for (int i=0; i<dg.getDestinationNames().size(); i++)
         {
