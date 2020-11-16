@@ -19,6 +19,9 @@ public class Services
     public static double[][] getShortestDistances(DestinationGraph destinations, int reference)
     {
         Dijkstra d = new Dijkstra(destinations.getDistanceAdjMatrixArray());
+        BellmanFord b =  new BellmanFord(destinations.getDistanceBellmanArray());
+        int E = destinations.getDistanceBellmanArray().length;
+//        return b.compute(E, reference);
         return d.compute(reference);
     }
 
@@ -31,6 +34,9 @@ public class Services
     public static double[][] getCheapestCosts(DestinationGraph destinations, int reference)
     {
         Dijkstra d = new Dijkstra(destinations.getCostAdjMatrixArray());
+        BellmanFord b = new BellmanFord(destinations.getCostBellmanArray());
+        int E  = destinations.getDistanceBellmanArray().length;
+//        return b.compute(E, reference);
         return d.compute(reference);
     }
 
