@@ -18,7 +18,7 @@ public class Services
      */
     public double[][] getShortestDistances(DestinationGraph destinations, int reference)
     {
-        Dijkstra d = new Dijkstra(destinations.getDistanceMatrixArray());
+        Dijkstra d = new Dijkstra(destinations.getDistanceAdjMatrixArray());
         return d.compute(reference);
     }
 
@@ -30,7 +30,7 @@ public class Services
      */
     public double[][] getCheapestCosts(DestinationGraph destinations, int reference)
     {
-        Dijkstra d = new Dijkstra(destinations.getCostMatrixArray());
+        Dijkstra d = new Dijkstra(destinations.getCostAdjMatrixArray());
         return d.compute(reference);
     }
 
