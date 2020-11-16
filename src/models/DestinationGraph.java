@@ -21,7 +21,7 @@ public class DestinationGraph
         this.destNames = new ArrayList<>();
     }
 
-    //Methods
+    //Public Methods
     /**
      * Adds a new destination to the graph. It won't point to anything yet.
      * @param dest
@@ -107,7 +107,20 @@ public class DestinationGraph
     }
 
     /**
-     * Get the distance matrix in a form of a List of ArrayLists
+     * Set the distance and cost between two destinations. Calling this method is equivalent in calling the setDistance() and setCost() methods individually.
+     * @param source - index of the source destination. This index determines which sublist to be manipulated in the cost matrix.
+     * @param dest - index of the target destination. This index determines which element to be manipulated in the sublist.
+     * @param distance - the new distance value between the two destinations.
+     * @param cost - the new cost between the two destinations.
+     */
+    public void setDistanceAndCost(int source, int dest, double distance, double cost)
+    {
+        this.setDistance(source, dest, distance);
+        this.setCost(source, dest, cost);
+    }
+
+    /**
+     * Get the distance matrix in a form of a List of ArrayLists (in adjacency matrix format)
      * @return a List<ArrayList<Double>> object.
      */
     public List<ArrayList<Double>> getDistanceMatrix()
@@ -116,10 +129,10 @@ public class DestinationGraph
     }
 
     /**
-     * Get the distance matrix in a form of a 2D array
+     * Get the distance matrix (in adjacency matrix format) in a form of a 2D array
      * @return a 2D array of double
      */
-    public double[][] getDistanceMatrixArray()
+    public double[][] getDistanceAdjMatrixArray()
     {
         int size = this.distMatrix.size();
         double[][] arr = new double[size][size];
@@ -136,7 +149,16 @@ public class DestinationGraph
     }
 
     /**
-     * Get the cost matrix in a form of a List of ArrayLists
+     * Get the distance matrix in the form of the Bellman matrix 2D array format.
+     * @return a double[][3] object
+     */
+    public double[][] getDistanceBellmanArray()
+    {
+        return this.convertAdjMatrixToBellmanMatrix(this.distMatrix);
+    }
+
+    /**
+     * Get the cost matrix in a form of a List of ArrayLists (in adjacency matrix format)
      * @return a List<ArrayList<Double>> object.
      */
     public List<ArrayList<Double>> getCostMatrix()
@@ -145,10 +167,10 @@ public class DestinationGraph
     }
 
     /**
-     * Get the cost matrix in a form of a 2D array
+     * Get the cost matrix (in adjacency matrix format) in a form of a 2D array
      * @return a 2D array of double
      */
-    public double[][] getCostMatrixArray()
+    public double[][] getCostAdjMatrixArray()
     {
         int size = this.costMatrix.size();
         double[][] arr = new double[size][size];
@@ -165,6 +187,15 @@ public class DestinationGraph
     }
 
     /**
+     * Get the cost matrix in the form of the Bellman matrix 2D array format.
+     * @return a double[][3] object
+     */
+    public double[][] getCostBellmanArray()
+    {
+        return this.convertAdjMatrixToBellmanMatrix(this.costMatrix);
+    }
+
+    /**
      * Get the list of destination names
      * @return an object of List<String>
      */
@@ -173,21 +204,79 @@ public class DestinationGraph
         return this.destNames;
     }
 
+    //Private Methods
+    /**
+     * Converts adjacency matrix to bellman matrix (in 2D array format)
+     * @param adjMatrix - a List<ArrayList<Double>> object
+     * @return a double[][3] object
+     */
+    private double[][] convertAdjMatrixToBellmanMatrix(List<ArrayList<Double>> adjMatrix)
+    {
+        int size = adjMatrix.size();
+        List<ArrayList<Double>> list = new ArrayList<>(); //Each connection will have 3 items: vertex 1 index, vertex 2 index, weight
+
+        //Convert adjacency matrix to adjacency list
+        for (int i=0; i<size; i++)
+        {
+            for (int a=0; a<size; a++)
+            {
+                double val = adjMatrix.get(i).get(a);
+                if (val != 0d)
+                {
+                    //Establish connection
+                    ArrayList<Double> subList = new ArrayList<>();
+                    subList.add((double)i);     //Vertex 1 index
+                    subList.add((double)a);     //Vertex 2 index
+                    subList.add(val);           //Weight
+
+                    //Add to list
+                    list.add(subList);
+                }
+            }
+        }
+
+        //Convert to primitive 2D array
+        double[][] arr = new double[list.size()][3];   //Each connection will have 3 items: vertex 1 index, vertex 2 index, weight
+        for (int i=0; i<list.size(); i++)
+        {
+            for (int a=0; a<3; a++)
+            {
+                arr[i][a] = list.get(i).get(a);
+            }
+        }
+
+        return arr;
+    }
+
+    //Main Method
     public static void main(String[] args)
     {
         DestinationGraph dg = new DestinationGraph();
         dg.addDestination(new Destination("Jakarta"));
         dg.addDestination(new Destination("Surabaya"));
+        dg.addDestination(new Destination("Solo"));
 
         dg.setDistance(0, 1, 15);
         dg.setCost(0, 1, 2000);
         dg.setDistance(1, 0, 10);
+        dg.setCost(0, 1, 5000);
+        dg.setDistanceAndCost(0, 2, 20, 12000);
+        dg.setDistanceAndCost(2, 1, 6, 2000);
 
         for (ArrayList<Double> sub : dg.getDistanceMatrix())
         {
             for (Double d : sub)
             {
                 System.out.print(d + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+        for (double[] sub : dg.getDistanceBellmanArray())
+        {
+            for (double val : sub)
+            {
+                System.out.print(val + " ");
             }
             System.out.println();
         }
