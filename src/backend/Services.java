@@ -16,7 +16,7 @@ public class Services
      * @param reference - index of the source destination.
      * @return an array of double that signifies the shortest distance from that destination to the source destination.
      */
-    public double[][] getShortestDistances(DestinationGraph destinations, int reference)
+    public static double[][] getShortestDistances(DestinationGraph destinations, int reference)
     {
         Dijkstra d = new Dijkstra(destinations.getDistanceAdjMatrixArray());
         return d.compute(reference);
@@ -28,7 +28,7 @@ public class Services
      * @param reference - index of the source destination.
      * @return an array of double that signifies the lowest cost from that destination to the source destination.
      */
-    public double[][] getCheapestCosts(DestinationGraph destinations, int reference)
+    public static double[][] getCheapestCosts(DestinationGraph destinations, int reference)
     {
         Dijkstra d = new Dijkstra(destinations.getCostAdjMatrixArray());
         return d.compute(reference);
