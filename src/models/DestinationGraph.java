@@ -149,12 +149,12 @@ public class DestinationGraph
     }
 
     /**
-     * Get the distance matrix in the form of the Bellman matrix 2D array format.
+     * Get the distance matrix in the form of the row graph matrix 2D array format.
      * @return a double[][3] object
      */
-    public double[][] getDistanceBellmanArray()
+    public double[][] getDistanceRowGraphArray()
     {
-        return this.convertAdjMatrixToBellmanMatrix(this.distMatrix);
+        return this.convertAdjMatrixToRowGraphMatrix(this.distMatrix);
     }
 
     /**
@@ -187,12 +187,12 @@ public class DestinationGraph
     }
 
     /**
-     * Get the cost matrix in the form of the Bellman matrix 2D array format.
+     * Get the cost matrix in the form of the row graph matrix 2D array format.
      * @return a double[][3] object
      */
-    public double[][] getCostBellmanArray()
+    public double[][] getCostRowGraphArray()
     {
-        return this.convertAdjMatrixToBellmanMatrix(this.costMatrix);
+        return this.convertAdjMatrixToRowGraphMatrix(this.costMatrix);
     }
 
     /**
@@ -206,11 +206,11 @@ public class DestinationGraph
 
     //Private Methods
     /**
-     * Converts adjacency matrix to bellman matrix (in 2D array format)
+     * Converts adjacency matrix to row graph matrix (in 2D array format)
      * @param adjMatrix - a List<ArrayList<Double>> object
      * @return a double[][3] object
      */
-    private double[][] convertAdjMatrixToBellmanMatrix(List<ArrayList<Double>> adjMatrix)
+    private double[][] convertAdjMatrixToRowGraphMatrix(List<ArrayList<Double>> adjMatrix)
     {
         int size = adjMatrix.size();
         List<ArrayList<Double>> list = new ArrayList<>(); //Each connection will have 3 items: vertex 1 index, vertex 2 index, weight
@@ -272,7 +272,7 @@ public class DestinationGraph
             System.out.println();
         }
         System.out.println();
-        for (double[] sub : dg.getDistanceBellmanArray())
+        for (double[] sub : dg.getDistanceRowGraphArray())
         {
             for (double val : sub)
             {
