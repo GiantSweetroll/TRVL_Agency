@@ -34,7 +34,7 @@ public class Dijkstra
 
         //set the distance from source to source as 0
         shortestPaths[start] = 0;
-        pathTable[1][start] = -1;
+        pathTable[1][start] = start;
 
         //Find shortest path to the other vertices
         for (int i = 0; i < this.VERTEX_COUNT - 1; i++)
