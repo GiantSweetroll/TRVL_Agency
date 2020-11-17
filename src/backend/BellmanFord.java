@@ -4,21 +4,22 @@ public class BellmanFord {
     //Fields
     private final double [][] GRAPH;
     private final int VERTEX_COUNT;
+    private final int numOfEdge;
 
     //Constructor
-    public BellmanFord(double[][] graph) {
+    public BellmanFord(double[][] graph, int numOfVertex) {
         this.GRAPH = graph;
-        this.VERTEX_COUNT = graph.length;
+        this.VERTEX_COUNT = numOfVertex;
+        this.numOfEdge = graph.length;
     }
 
     //Public Methods
     /**
      * Calculates the shortest distances from one point in the graph to all other points using Bellman Ford's algorithm.
-     * @param E - the total number of edges in the graph index.
      * @param start - the start index. The algorithm will calculate the shortest distance of all vertices to this point.
      * @return an array of double with the shortest distances from the start point to all other points.
      */
-    public double[][] compute(int E, int start)
+    public double[][] compute(int start)
     {
         double [][] pathTable = new double[2][this.VERTEX_COUNT];  //Will be used for output. It will contain the shortest path from start to all other vertices as well as the previous node.
         double [] shortestPath = new double[this.VERTEX_COUNT];    //Contain the shortest path from start to all other vertices.
@@ -31,12 +32,13 @@ public class BellmanFord {
 
         //Set the distance from source to source as 0
         shortestPath[start] = 0;
+        pathTable[1][start] = start;
 
         //Find shortest path from source to the other vertices
         //Relax all edges V(vertices) - 1 times.
         for(int i = 0; i < this.VERTEX_COUNT - 1; i++)
         {
-            for(int j = 0; j < E; j++)
+            for(int j = 0; j < numOfEdge; j++)
             {
                 //Relaxation process where it will switch the default value (which is infinity) of the next vertex
                 //to the sum of previous vertex and edge to next vertex's weight. With condition :
@@ -45,12 +47,14 @@ public class BellmanFord {
                         shortestPath[(int) this.GRAPH[j][1]])
                     shortestPath[(int) this.GRAPH[j][1]] =
                             shortestPath[(int) this.GRAPH[j][0]] + this.GRAPH[j][2];
+                pathTable[1][i] = this.GRAPH[j][1];
             }
+
         }
 
         //This block of code purpose is to check negative-weighted cycles.
         //And to check if we got a shorter path than above result means that the graph contains cycle.
-        for (int i = 0; i < E; i++)
+        for (int i = 0; i < numOfEdge; i++)
         {
             int u = (int) this.GRAPH[i][0];
             int v = (int) this.GRAPH[i][1];
