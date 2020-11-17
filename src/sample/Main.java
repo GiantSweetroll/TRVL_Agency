@@ -5,19 +5,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.ChoiceBox;
 
 public class Main extends Application {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();
+    public static void main() {
+        launch();
     }
 
-
-    public static void main(String[] args) {
-        launch(args);
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        //Loads the UI and the positions of the widgets
+        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        //Sets title of the program
+        //Sets the resolution of the application windows
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        //Shows the application window
+        primaryStage.show();
     }
 }
