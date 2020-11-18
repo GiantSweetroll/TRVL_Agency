@@ -149,12 +149,12 @@ public class DestinationGraph
     }
 
     /**
-     * Get the distance matrix in the form of the Bellman matrix 2D array format.
+     * Get the distance matrix in the form of the row graph matrix 2D array format.
      * @return a double[][3] object
      */
-    public double[][] getDistanceBellmanArray()
+    public double[][] getDistanceRowGraphArray()
     {
-        return this.convertAdjMatrixToBellmanMatrix(this.distMatrix);
+        return this.convertAdjMatrixToRowGraphMatrix(this.distMatrix);
     }
 
     /**
@@ -187,12 +187,12 @@ public class DestinationGraph
     }
 
     /**
-     * Get the cost matrix in the form of the Bellman matrix 2D array format.
+     * Get the cost matrix in the form of the row graph matrix 2D array format.
      * @return a double[][3] object
      */
-    public double[][] getCostBellmanArray()
+    public double[][] getCostRowGraphArray()
     {
-        return this.convertAdjMatrixToBellmanMatrix(this.costMatrix);
+        return this.convertAdjMatrixToRowGraphMatrix(this.costMatrix);
     }
 
     /**
@@ -204,13 +204,56 @@ public class DestinationGraph
         return this.destNames;
     }
 
+    /**
+     * Get the location index of the Destination name.
+     * @param destinationName - The name of the destination. If multiple destinations have the same name, the first occurrence will be selected.
+     * @return the index of the destination in the order they were added. If the destination is not found, -1 will be returned instead.
+     */
+    public int getIndex(String destinationName)
+    {
+        int index = -1;
+
+        for (int i=0; i<this.destNames.size(); i++)
+        {
+            if (this.destNames.get(i).equals(destinationName))
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    /**
+     * Return the distance between two destinations.
+     * @param source - the index of the source destination
+     * @param target - the index of the target destination
+     * @return a double. If there is no connection between the two distances, returns 0.0.
+     */
+    public double getDistance(int source, int target)
+    {
+        return this.distMatrix.get(source).get(target);
+    }
+
+    /**
+     * Return the cost between two destinations.
+     * @param source - the index of the source destination
+     * @param target - the index of the target destination
+     * @return a double. If there is no connection between the two distances, returns 0.0.
+     */
+    public double getCost(int source, int target)
+    {
+        return this.costMatrix.get(source).get(target);
+    }
+
     //Private Methods
     /**
-     * Converts adjacency matrix to bellman matrix (in 2D array format)
+     * Converts adjacency matrix to row graph matrix (in 2D array format)
      * @param adjMatrix - a List<ArrayList<Double>> object
      * @return a double[][3] object
      */
-    private double[][] convertAdjMatrixToBellmanMatrix(List<ArrayList<Double>> adjMatrix)
+    private double[][] convertAdjMatrixToRowGraphMatrix(List<ArrayList<Double>> adjMatrix)
     {
         int size = adjMatrix.size();
         List<ArrayList<Double>> list = new ArrayList<>(); //Each connection will have 3 items: vertex 1 index, vertex 2 index, weight
@@ -272,7 +315,7 @@ public class DestinationGraph
             System.out.println();
         }
         System.out.println();
-        for (double[] sub : dg.getDistanceBellmanArray())
+        for (double[] sub : dg.getDistanceRowGraphArray())
         {
             for (double val : sub)
             {
