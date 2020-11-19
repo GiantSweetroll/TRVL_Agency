@@ -38,7 +38,78 @@ public class Controller {
     Line indoToMyan = new Line();
     @FXML
     Line indoToNam = new Line();
-
+    @FXML
+    Line sgToMyan = new Line();
+    @FXML
+    Line sgToMal = new Line();
+    @FXML
+    Line sgToThai = new Line();
+    @FXML
+    Line sgToLaos = new Line();
+    @FXML
+    Line sgToCamb = new Line();
+    @FXML
+    Line sgToNam = new Line();
+    @FXML
+    Line sgToBrunei = new Line();
+    @FXML
+    Line sgToPH = new Line();
+    @FXML
+    Line malToMyan = new Line();
+    @FXML
+    Line malToThai = new Line();
+    @FXML
+    Line malToLaos = new Line();
+    @FXML
+    Line malToCamb = new Line();
+    @FXML
+    Line malToNam = new Line();
+    @FXML
+    Line malToBrunei = new Line();
+    @FXML
+    Line malToPH = new Line();
+    @FXML
+    Line bruToMyan = new Line();
+    @FXML
+    Line bruToThai = new Line();
+    @FXML
+    Line bruToLaos = new Line();
+    @FXML
+    Line bruToCamb = new Line();
+    @FXML
+    Line bruToNam = new Line();
+    @FXML
+    Line bruToPH = new Line();
+    @FXML
+    Line cambToMyan = new Line();
+    @FXML
+    Line cambToThai = new Line();
+    @FXML
+    Line cambToLaos = new Line();
+    @FXML
+    Line cambToNam = new Line();
+    @FXML
+    Line cambToPH = new Line();
+    @FXML
+    Line thaiToMyan = new Line();
+    @FXML
+    Line thaiToLaos = new Line();
+    @FXML
+    Line thaiToNam = new Line();
+    @FXML
+    Line thaiToPH = new Line();
+    @FXML
+    Line phToMyan = new Line();
+    @FXML
+    Line phToLaos = new Line();
+    @FXML
+    Line phToNam = new Line();
+    @FXML
+    Line laosToMyan = new Line();
+    @FXML
+    Line laosToNam = new Line();
+    @FXML
+    Line myanToNam = new Line();
     @FXML
     ImageView map = new ImageView();
 
