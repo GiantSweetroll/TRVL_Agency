@@ -119,21 +119,15 @@ public class Controller {
         fromChoiceBox.getItems().addAll("Indonesia", "Vietnam", "Brunei", "Laos", "Cambodia", "Thailand", "Philippines", "Malaysia", "Singapore", "Myanmar");
     }
     @FXML
-    public void CheapButtonClicked(){
-        Line destinationLine = indoToSing;
-        if (toChoiceBox.getValue().equals("line1")) {
-            destinationLine.setStroke(Color.AQUA);
-        }
-        else{
-            destinationLine.setStroke(Color.VIOLET);
-        }
+    public void CheapButtonClicked() {
+        indoToMal.setStroke(Color.DARKGREEN);
+        malToMyan.setStroke(Color.DARKGREEN);
+        indoToMyan.setStroke(Color.TRANSPARENT);
     }
     @FXML
     public void FastButtonClicked(){
-        Line testing = new Line(538, 225, -197,  294);
-        testing.setStroke(Color.AQUA);
-        testing.setLayoutX(538);
-        testing.setLayoutY(303);
-        indoToSing.setStroke(Color.RED);
+        indoToMyan.setStroke(Color.DARKGREEN);
+        indoToMal.setStroke(Color.TRANSPARENT);
+        malToMyan.setStroke(Color.TRANSPARENT);
     }
 }
