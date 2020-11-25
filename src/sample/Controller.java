@@ -1,5 +1,6 @@
 package sample;
 
+import backend.Services;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -8,6 +9,12 @@ import javafx.scene.shape.Line;
 import javafx.scene.paint.Paint;
 import javafx.scene.image.ImageView;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javafx.scene.control.ComboBox;
+
+import models.*;
 
 
 public class Controller {
@@ -17,9 +24,9 @@ public class Controller {
     @FXML
     public Button FastButton = new Button();
     @FXML
-    ChoiceBox<String> toChoiceBox = new ChoiceBox<>();
+    ComboBox<String> toComboBox = new ComboBox<>();
     @FXML
-    ChoiceBox<String> fromChoiceBox = new ChoiceBox<>();
+    ComboBox<String> fromComboBox = new ComboBox<>();
     @FXML
     Line indoToSing = new Line();
     @FXML
@@ -94,22 +101,55 @@ public class Controller {
     Line myanToNam = new Line();
     @FXML
     ImageView map = new ImageView();
+    HashMap<Integer, HashMap<Integer, Line>> correspondingLines = new HashMap<>();
+
+
+
 
     @FXML
     public void initialize(){
-        toChoiceBox.getItems().addAll("Indonesia", "Vietnam", "Brunei", "Laos", "Cambodia", "Thailand", "Philippines", "Malaysia", "Singapore", "Myanmar");
-        fromChoiceBox.getItems().addAll("Indonesia", "Vietnam", "Brunei", "Laos", "Cambodia", "Thailand", "Philippines", "Malaysia", "Singapore", "Myanmar");
+        toComboBox.getItems().addAll("Indonesia", "Singapore", "Malaysia", "Brunei", "Vietnam", "Myanmar", "Thailand", "Philippines", "Cambodia", "Laos");
+        fromComboBox.getItems().addAll("Indonesia", "Singapore", "Malaysia", "Brunei", "Vietnam", "Myanmar", "Thailand", "Philippines", "Cambodia", "Laos");
+        HashMap<Integer, Line> hashMaplineindo = new HashMap<>();
+        HashMap<Integer, Line> hashMaplineSg = new HashMap<>();
+        hashMaplineindo.put(1, indoToSing);
+        hashMaplineindo.put(3, indoToBrunei);
+        hashMaplineindo.put(4, indoToNam);
+        hashMaplineindo.put(5, indoToMyan);
+        hashMaplineindo.put(6, indoToThai);
+        hashMaplineindo.put(7, indoToPH);
+        hashMaplineindo.put(8, indoToCamb);
+        hashMaplineindo.put(9, indoToLaos);
+        correspondingLines.put(0, hashMaplineindo);
+
     }
     @FXML
     public void CheapButtonClicked() {
-        indoToSing.setStroke(Color.DARKGREEN);
-        sgToMyan.setStroke(Color.DARKGREEN);
-        indoToMyan.setStroke(Color.TRANSPARENT);
+        int fromIndex = 0;
+        int toIndex = 0;
+        for(int i = 0; i < Main.country.size(); i ++){
+            if(fromComboBox.getValue().equals(Main.country.get(i))){
+                fromIndex = i;
+                break;
+            }
+        }
+        for(int i = 0; i < Main.country.size(); i++){
+            if(toComboBox.getValue().equals(Main.country.get(i))){
+                toIndex = i;
+                break;
+            }
+        }
+        double[][] gardyanBacot = Services.getCheapestCosts(Main.dg, fromIndex);
+        int curIndex = fromIndex;
+        double totalCost = gardyanBacot[curIndex][0];;
+        ArrayList<Integer> completeListCheap = new ArrayList<>();
+        while(toIndex != curIndex){
+            curIndex = (int)gardyanBacot[curIndex][1];
+            completeListCheap.add(curIndex);
+        }
     }
     @FXML
     public void FastButtonClicked(){
-        indoToMyan.setStroke(Color.DARKGREEN);
-        sgToMyan.setStroke(Color.TRANSPARENT);
-        indoToSing.setStroke(Color.TRANSPARENT);
+
     }
 }

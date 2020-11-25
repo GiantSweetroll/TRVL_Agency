@@ -20,7 +20,7 @@ public class Services
     {
         Dijkstra d = new Dijkstra(destinations.getDistanceAdjMatrixArray());
         BellmanFord b =  new BellmanFord(destinations.getDistanceRowGraphArray(), destinations.getDestinationNames().size());
-        return b.compute(reference);
+        return d.compute(reference);
     }
 
     /**
