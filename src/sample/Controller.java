@@ -23,8 +23,6 @@ public class Controller {
     @FXML
     Line indoToSing = new Line();
     @FXML
-    Line indoToMal = new Line();
-    @FXML
     Line indoToBrunei = new Line();
     @FXML
     Line indoToPH = new Line();
@@ -53,11 +51,7 @@ public class Controller {
     @FXML
     Line sgToBrunei = new Line();
     @FXML
-    Line sgToPH = new Line();
-    @FXML
     Line malToMyan = new Line();
-    @FXML
-    Line malToThai = new Line();
     @FXML
     Line malToLaos = new Line();
     @FXML
@@ -67,31 +61,19 @@ public class Controller {
     @FXML
     Line malToBrunei = new Line();
     @FXML
-    Line malToPH = new Line();
-    @FXML
     Line bruToMyan = new Line();
     @FXML
     Line bruToThai = new Line();
     @FXML
-    Line bruToLaos = new Line();
-    @FXML
     Line bruToCamb = new Line();
-    @FXML
-    Line bruToNam = new Line();
     @FXML
     Line bruToPH = new Line();
     @FXML
     Line cambToMyan = new Line();
     @FXML
-    Line cambToThai = new Line();
-    @FXML
     Line cambToLaos = new Line();
     @FXML
-    Line cambToNam = new Line();
-    @FXML
     Line cambToPH = new Line();
-    @FXML
-    Line thaiToMyan = new Line();
     @FXML
     Line thaiToLaos = new Line();
     @FXML
@@ -120,14 +102,14 @@ public class Controller {
     }
     @FXML
     public void CheapButtonClicked() {
-        indoToMal.setStroke(Color.DARKGREEN);
-        malToMyan.setStroke(Color.DARKGREEN);
+        indoToSing.setStroke(Color.DARKGREEN);
+        sgToMyan.setStroke(Color.DARKGREEN);
         indoToMyan.setStroke(Color.TRANSPARENT);
     }
     @FXML
     public void FastButtonClicked(){
         indoToMyan.setStroke(Color.DARKGREEN);
-        indoToMal.setStroke(Color.TRANSPARENT);
-        malToMyan.setStroke(Color.TRANSPARENT);
+        sgToMyan.setStroke(Color.TRANSPARENT);
+        indoToSing.setStroke(Color.TRANSPARENT);
     }
 }
