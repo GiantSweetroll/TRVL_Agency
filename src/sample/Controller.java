@@ -9,6 +9,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.paint.Paint;
 import javafx.scene.image.ImageView;
 import java.awt.*;
+import java.awt.datatransfer.SystemFlavorMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -110,8 +111,8 @@ public class Controller {
     public void initialize(){
         toComboBox.getItems().addAll("Indonesia", "Singapore", "Malaysia", "Brunei", "Vietnam", "Myanmar", "Thailand", "Philippines", "Cambodia", "Laos");
         fromComboBox.getItems().addAll("Indonesia", "Singapore", "Malaysia", "Brunei", "Vietnam", "Myanmar", "Thailand", "Philippines", "Cambodia", "Laos");
+
         HashMap<Integer, Line> hashMaplineindo = new HashMap<>();
-        HashMap<Integer, Line> hashMaplineSg = new HashMap<>();
         hashMaplineindo.put(1, indoToSing);
         hashMaplineindo.put(3, indoToBrunei);
         hashMaplineindo.put(4, indoToNam);
@@ -122,6 +123,87 @@ public class Controller {
         hashMaplineindo.put(9, indoToLaos);
         correspondingLines.put(0, hashMaplineindo);
 
+        HashMap<Integer, Line> hashMaplineSg = new HashMap<>();
+        hashMaplineSg.put(0,indoToSing);
+        hashMaplineSg.put(2,sgToMal);
+        hashMaplineSg.put(3,sgToBrunei);
+        hashMaplineSg.put(4,sgToNam);
+        hashMaplineSg.put(5,sgToMyan);
+        hashMaplineSg.put(6,sgToThai);
+        hashMaplineSg.put(8,sgToCamb);
+        hashMaplineSg.put(9,sgToLaos);
+
+        HashMap<Integer,Line> hashMaplineMal = new HashMap<>();
+        hashMaplineMal.put(1,sgToMal);
+        hashMaplineMal.put(3,malToBrunei);
+        hashMaplineMal.put(4,malToNam);
+        hashMaplineMal.put(5,malToMyan);
+        hashMaplineMal.put(8,malToCamb);
+        hashMaplineMal.put(9,malToLaos);
+
+        HashMap<Integer,Line> hashMaplineBru = new HashMap<>();
+        hashMaplineBru.put(0,indoToBrunei);
+        hashMaplineBru.put(1,sgToBrunei);
+        hashMaplineBru.put(2,malToBrunei);
+        hashMaplineBru.put(5,bruToMyan);
+        hashMaplineBru.put(6,bruToThai);
+        hashMaplineBru.put(7,bruToPH);
+        hashMaplineBru.put(8,bruToCamb);
+
+        HashMap<Integer,Line> hashMaplineNam = new HashMap<>();
+        hashMaplineNam.put(0,indoToNam);
+        hashMaplineNam.put(1,sgToNam);
+        hashMaplineNam.put(2,malToNam);
+        hashMaplineNam.put(5,myanToNam);
+        hashMaplineNam.put(6,thaiToNam);
+        hashMaplineNam.put(7,phToNam);
+        hashMaplineNam.put(9,laosToNam);
+
+        HashMap<Integer,Line> hashMaplineMyan = new HashMap<>();
+        hashMaplineMyan.put(0, indoToMyan);
+        hashMaplineMyan.put(1,sgToMyan);
+        hashMaplineMyan.put(2,malToMyan);
+        hashMaplineMyan.put(3,bruToMyan);
+        hashMaplineMyan.put(4,myanToNam);
+        hashMaplineMyan.put(7,phToMyan);
+        hashMaplineMyan.put(8,cambToMyan);
+        hashMaplineMyan.put(9,laosToMyan);
+
+        HashMap<Integer,Line> hashMaplineThai = new HashMap<>();
+        hashMaplineThai.put(0,indoToThai);
+        hashMaplineThai.put(1,sgToThai);
+        hashMaplineThai.put(3,bruToThai);
+        hashMaplineThai.put(4,thaiToNam);
+        hashMaplineThai.put(7,thaiToPH);
+        hashMaplineThai.put(8,thaiToLaos);
+
+        HashMap<Integer,Line> hashMaplinePh = new HashMap<>();
+        hashMaplinePh.put(0,indoToPH);
+        hashMaplinePh.put(3,bruToPH);
+        hashMaplinePh.put(4,phToNam);
+        hashMaplinePh.put(5,phToMyan);
+        hashMaplinePh.put(6,thaiToPH);
+        hashMaplinePh.put(8,cambToPH);
+        hashMaplinePh.put(9,phToLaos);
+
+        HashMap<Integer, Line> hashMaplineCamb = new HashMap<>();
+        hashMaplineCamb.put(0,indoToCamb);
+        hashMaplineCamb.put(1,sgToCamb);
+        hashMaplineCamb.put(2,malToCamb);
+        hashMaplineCamb.put(3,bruToCamb);
+        hashMaplineCamb.put(5,cambToMyan);
+        hashMaplineCamb.put(7,cambToPH);
+        hashMaplineCamb.put(9,cambToLaos);
+
+        HashMap<Integer,Line> hashMaplineLaos = new HashMap<>();
+        hashMaplineLaos.put(0,indoToLaos);
+        hashMaplineLaos.put(1,sgToLaos);
+        hashMaplineLaos.put(2,malToLaos);
+        hashMaplineLaos.put(4,laosToNam);
+        hashMaplineLaos.put(5,laosToMyan);
+        hashMaplineLaos.put(6,thaiToLaos);
+        hashMaplineLaos.put(7,phToLaos);
+        hashMaplineLaos.put(8,cambToLaos);
     }
     @FXML
     public void CheapButtonClicked() {
