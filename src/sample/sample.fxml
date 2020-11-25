@@ -1,8 +1,73 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<GridPane fx:controller="sample.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <ImageView fx:id="map" fitHeight="659.0" fitWidth="747.0" layoutX="507.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../images/ASEAN-map.jpg" />
+        </image>
+    </ImageView>
+    <Button fx:id="CheapButton" layoutX="176.0" layoutY="471.0" mnemonicParsing="false" onAction="#CheapButtonClicked" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="Cheapest" />
+    <Button fx:id="FastButton" layoutX="183.0" layoutY="575.0" mnemonicParsing="false" onAction="#FastButtonClicked" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="Fastest" />
+    <Text layoutX="30.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRVL-ing" wrappingWidth="357.13671875">
+        <font>
+            <Font size="89.0" />
+        </font>
+    </Text>
+    <Text layoutX="107.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From">
+        <font>
+            <Font size="89.0" />
+        </font>
+    </Text>
+    <Text layoutX="160.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To">
+        <font>
+            <Font size="89.0" />
+        </font>
+    </Text>
+    <Line fx:id="indoToSing" endX="-197.0" endY="294.0" layoutX="804.0" layoutY="303.0" startX="-55.0" startY="225.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="indoToBrunei" endX="33.0" endY="-96.0" layoutX="819.0" layoutY="484.0" startX="-70.0" startY="44.0" stroke="TRANSPARENT" />
+    <Line fx:id="indoToPH" endX="129.0" endY="-281.0" layoutX="801.0" layoutY="543.0" startX="-51.0" startY="-15.0" stroke="TRANSPARENT" />
+    <Line fx:id="indoToCamb" endX="-147.0" endY="-224.0" layoutX="873.0" layoutY="529.0" startX="-123.7071533203125" startY="-0.29290771484375" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="indoToThai" endX="-213.0" endY="-236.0" layoutX="885.0" layoutY="509.0" startX="-136.0" startY="18.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="indoToLaos" endX="-222.0" endY="-253.0" layoutX="919.0" layoutY="469.0" startX="-170.0" startY="58.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="indoToMyan" endX="-359.0" endY="-284.0" layoutX="974.0" layoutY="480.0" startX="-224.0" startY="47.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="indoToNam" endX="-275.0" endY="-319.0" layoutX="1012.0" layoutY="495.0" startX="-262.0" startY="33.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="sgToMyan" endX="131.0" endY="-204.0" layoutX="482.0" layoutY="400.0" startX="124.29290771484375" startY="197.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="sgToMal" endX="258.0" endY="26.0" layoutX="427.0" layoutY="385.0" startX="178.5858154296875" startY="213.4141845703125" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="sgToThai" endX="215.0" endY="-70.0" layoutX="456.0" layoutY="344.0" startX="148.87872314453125" startY="255.12127685546875" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="sgToCamb" endX="267.0" endY="-61.0" layoutX="459.0" layoutY="362.0" startX="145.87872314453125" startY="237.12127685546875" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="sgToLaos" endX="252.0" endY="-120.0" layoutX="445.0" layoutY="336.0" startX="161.29290771484375" startY="261.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="sgToNam" endX="317.0" endY="-198.0" layoutX="419.0" layoutY="374.0" startX="186.5858154296875" startY="224.4141845703125" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="sgToBrunei" endX="420.0" endY="115.0" layoutX="433.0" layoutY="273.0" startX="171.171630859375" startY="326.828369140625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="malToMyan" endX="217.29290771484375" endY="-177.70709228515625" layoutX="397.0" layoutY="373.0" startX="288.70709228515625" startY="37.29290771484375" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="malToLaos" endX="268.0" endY="-85.0" layoutX="429.0" layoutY="303.0" startX="256.29290771484375" startY="106.29290771484375" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="malToCamb" endX="316.0" endY="-11.0" layoutX="411.0" layoutY="314.0" startX="273.5858154296875" startY="90.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="malToNam" endX="326.0" endY="-156.0" layoutX="411.0" layoutY="333.0" startX="275.4141845703125" startY="78.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="malToBrunei" endX="442.0" endY="123.0" layoutX="411.0" layoutY="265.0" startX="273.5858154296875" startY="145.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="bruToMyan" endX="204.0" endY="-10.0" layoutX="411.0" layoutY="204.0" startX="442.70703125" startY="183.29290771484375" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="bruToThai" endX="32.0" endY="62.0" layoutX="819.0" layoutY="326.0" startX="-147.0" startY="-51.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="bruToCamb" endX="239.0" endY="61.0" layoutX="488.0" layoutY="242.0" startX="363.7071533203125" startY="146.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="bruToPH" endX="459.0" endY="102.0" layoutX="470.0" layoutY="161.0" startX="382.7071533203125" startY="226.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="cambToMyan" endX="170.0" endY="-76.0" layoutX="446.0" layoutY="272.0" startX="279.2928466796875" startY="32.29290771484375" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="cambToLaos" endX="290.0" endY="-46.0" layoutX="406.0" layoutY="265.0" startX="322.4140625" startY="38.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="cambToPH" endX="511.0" endY="2.0" layoutX="419.0" layoutY="262.0" startX="309.4140625" startY="41.0" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="phToMyan" endX="195.0" endY="-78.0" layoutX="420.0" layoutY="272.0" startX="509.70703125" startY="-6.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="thaiToPH" endX="248.0" endY="57.0" layoutX="423.0" layoutY="217.0" startX="506.70703125" startY="48.29290771484375" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="phToLaos" endX="273.0" endY="-33.0" layoutX="425.0" layoutY="250.0" startX="504.70703125" startY="15.29290771484375" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="phToNam" endX="339.70703125" endY="-98.70709228515625" layoutX="398.0" layoutY="275.0" startX="531.70703125" startY="-12.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="thaiToLaos" endX="285.29290771484375" endY="-56.70709228515625" layoutX="411.0" layoutY="275.0" startX="260.29290771484375" startY="-0.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="thaiToNam" endX="330.0" endY="-77.0" layoutX="406.0" layoutY="254.0" startX="264.29290771484375" startY="20.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="laosToMyan" endX="203.0" endY="-39.0" layoutX="411.0" layoutY="234.0" startX="285.29290771484375" startY="-15.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="laosToNam" endX="372.2928466796875" endY="-94.70709228515625" layoutX="364.0" layoutY="272.0" startX="332.29290771484375" startY="-53.70709228515625" stroke="TRANSPARENT" strokeWidth="2.0" />
+    <Line fx:id="myanToNam" endX="209.0" endY="-81.0" layoutX="406.0" layoutY="275.0" startX="331.0" startY="-99.4141845703125" stroke="TRANSPARENT" strokeWidth="2.0" />
+   <ComboBox fx:id="fromComboBox" layoutX="134.0" layoutY="229.0" prefWidth="150.0" />
+   <ComboBox fx:id="toComboBox" layoutX="135.0" layoutY="359.0" prefWidth="150.0" />
+</AnchorPane>
