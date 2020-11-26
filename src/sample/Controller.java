@@ -132,6 +132,7 @@ public class Controller {
         hashMaplineSg.put(6,sgToThai);
         hashMaplineSg.put(8,sgToCamb);
         hashMaplineSg.put(9,sgToLaos);
+        correspondingLines.put(1, hashMaplineSg);
 
         HashMap<Integer,Line> hashMaplineMal = new HashMap<>();
         hashMaplineMal.put(1,sgToMal);
@@ -140,6 +141,7 @@ public class Controller {
         hashMaplineMal.put(5,malToMyan);
         hashMaplineMal.put(8,malToCamb);
         hashMaplineMal.put(9,malToLaos);
+        correspondingLines.put(2, hashMaplineMal);
 
         HashMap<Integer,Line> hashMaplineBru = new HashMap<>();
         hashMaplineBru.put(0,indoToBrunei);
@@ -149,6 +151,7 @@ public class Controller {
         hashMaplineBru.put(6,bruToThai);
         hashMaplineBru.put(7,bruToPH);
         hashMaplineBru.put(8,bruToCamb);
+        correspondingLines.put(3, hashMaplineBru);
 
         HashMap<Integer,Line> hashMaplineNam = new HashMap<>();
         hashMaplineNam.put(0,indoToNam);
@@ -158,6 +161,7 @@ public class Controller {
         hashMaplineNam.put(6,thaiToNam);
         hashMaplineNam.put(7,phToNam);
         hashMaplineNam.put(9,laosToNam);
+        correspondingLines.put(4, hashMaplineNam);
 
         HashMap<Integer,Line> hashMaplineMyan = new HashMap<>();
         hashMaplineMyan.put(0, indoToMyan);
@@ -168,6 +172,7 @@ public class Controller {
         hashMaplineMyan.put(7,phToMyan);
         hashMaplineMyan.put(8,cambToMyan);
         hashMaplineMyan.put(9,laosToMyan);
+        correspondingLines.put(5, hashMaplineMyan);
 
         HashMap<Integer,Line> hashMaplineThai = new HashMap<>();
         hashMaplineThai.put(0,indoToThai);
@@ -176,6 +181,7 @@ public class Controller {
         hashMaplineThai.put(4,thaiToNam);
         hashMaplineThai.put(7,thaiToPH);
         hashMaplineThai.put(8,thaiToLaos);
+        correspondingLines.put(6, hashMaplineThai);
 
         HashMap<Integer,Line> hashMaplinePh = new HashMap<>();
         hashMaplinePh.put(0,indoToPH);
@@ -185,6 +191,7 @@ public class Controller {
         hashMaplinePh.put(6,thaiToPH);
         hashMaplinePh.put(8,cambToPH);
         hashMaplinePh.put(9,phToLaos);
+        correspondingLines.put(7, hashMaplinePh);
 
         HashMap<Integer, Line> hashMaplineCamb = new HashMap<>();
         hashMaplineCamb.put(0,indoToCamb);
@@ -194,6 +201,7 @@ public class Controller {
         hashMaplineCamb.put(5,cambToMyan);
         hashMaplineCamb.put(7,cambToPH);
         hashMaplineCamb.put(9,cambToLaos);
+        correspondingLines.put(8, hashMaplineCamb);
 
         HashMap<Integer,Line> hashMaplineLaos = new HashMap<>();
         hashMaplineLaos.put(0,indoToLaos);
@@ -204,6 +212,7 @@ public class Controller {
         hashMaplineLaos.put(6,thaiToLaos);
         hashMaplineLaos.put(7,phToLaos);
         hashMaplineLaos.put(8,cambToLaos);
+        correspondingLines.put(9, hashMaplineLaos);
     }
     @FXML
     public void CheapButtonClicked() {
@@ -221,13 +230,22 @@ public class Controller {
                 break;
             }
         }
-        double[][] gardyanBacot = Services.getCheapestCosts(Main.dg, fromIndex);
-        int curIndex = fromIndex;
-        double totalCost = gardyanBacot[curIndex][0];;
+        double[][] cheapDestinations = Services.getCheapestCosts(Main.dg, fromIndex);
+        for (int i=0; i<Main.dg.getDestinationNames().size(); i++)
+        {
+            System.out.println(i + " " + cheapDestinations[0][i] + " " + cheapDestinations[1][i]);
+        }
+        int curIndex = toIndex;
+        double totalCost = cheapDestinations[0][curIndex];;
         ArrayList<Integer> completeListCheap = new ArrayList<>();
-        while(toIndex != curIndex){
-            curIndex = (int)gardyanBacot[curIndex][1];
+        while(curIndex != fromIndex){
             completeListCheap.add(curIndex);
+            curIndex = (int)cheapDestinations[1][curIndex];
+
+        }
+        for(int i = 0; i < (completeListCheap.size()); i++){
+            correspondingLines.get(completeListCheap.get(i)).get(i+1).setStroke(Color.DARKGREEN);
+            System.out.println(i);
         }
     }
     @FXML
