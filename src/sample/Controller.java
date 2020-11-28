@@ -103,6 +103,7 @@ public class Controller {
     @FXML
     ImageView map = new ImageView();
     HashMap<Integer, HashMap<Integer, Line>> correspondingLines = new HashMap<>();
+    ArrayList<Line> allLines = new ArrayList<>();
 
 
 
@@ -111,6 +112,42 @@ public class Controller {
     public void initialize(){
         toComboBox.getItems().addAll("Indonesia", "Singapore", "Malaysia", "Brunei", "Vietnam", "Myanmar", "Thailand", "Philippines", "Cambodia", "Laos");
         fromComboBox.getItems().addAll("Indonesia", "Singapore", "Malaysia", "Brunei", "Vietnam", "Myanmar", "Thailand", "Philippines", "Cambodia", "Laos");
+        allLines.add(indoToSing);
+        allLines.add(indoToBrunei);
+        allLines.add(indoToNam);
+        allLines.add(indoToMyan);
+        allLines.add(indoToThai);
+        allLines.add(indoToPH);
+        allLines.add(indoToCamb);
+        allLines.add(indoToLaos);
+        allLines.add(sgToMal);
+        allLines.add(sgToBrunei);
+        allLines.add(sgToNam);
+        allLines.add(sgToMyan);
+        allLines.add(sgToThai);
+        allLines.add(sgToCamb);
+        allLines.add(sgToLaos);
+        allLines.add(malToBrunei);
+        allLines.add(malToNam);
+        allLines.add(malToMyan);
+        allLines.add(malToCamb);
+        allLines.add(malToLaos);
+        allLines.add(bruToCamb);
+        allLines.add(bruToMyan);
+        allLines.add(bruToPH);
+        allLines.add(bruToThai);
+        allLines.add(cambToMyan);
+        allLines.add(cambToLaos);
+        allLines.add(cambToPH);
+        allLines.add(thaiToLaos);
+        allLines.add(thaiToNam);
+        allLines.add(thaiToPH);
+        allLines.add(phToLaos);
+        allLines.add(phToMyan);
+        allLines.add(phToLaos);
+        allLines.add(laosToMyan);
+        allLines.add(laosToNam);
+        allLines.add(myanToNam);
 
         HashMap<Integer, Line> hashMaplineindo = new HashMap<>();
         hashMaplineindo.put(1, indoToSing);
@@ -218,15 +255,20 @@ public class Controller {
     public void CheapButtonClicked() {
         int fromIndex = 0;
         int toIndex = 0;
+        for(int i = 0; i < allLines.size(); i++){
+            allLines.get(i).setStroke(Color.TRANSPARENT);
+        }
         for(int i = 0; i < Main.country.size(); i ++){
             if(fromComboBox.getValue().equals(Main.country.get(i))){
                 fromIndex = i;
+                System.out.println(i);
                 break;
             }
         }
         for(int i = 0; i < Main.country.size(); i++){
             if(toComboBox.getValue().equals(Main.country.get(i))){
                 toIndex = i;
+                System.out.println(i);
                 break;
             }
         }
@@ -238,14 +280,23 @@ public class Controller {
         int curIndex = toIndex;
         double totalCost = cheapDestinations[0][curIndex];;
         ArrayList<Integer> completeListCheap = new ArrayList<>();
+        completeListCheap.add(curIndex);
         while(curIndex != fromIndex){
-            completeListCheap.add(curIndex);
+            System.out.println("Current Index" + curIndex);
+
+
             curIndex = (int)cheapDestinations[1][curIndex];
+            completeListCheap.add(curIndex);
+            System.out.println("Current Index" + curIndex);
 
         }
-        for(int i = 0; i < (completeListCheap.size()); i++){
-            correspondingLines.get(completeListCheap.get(i)).get(i+1).setStroke(Color.DARKGREEN);
-            System.out.println(i);
+
+        System.out.println("Complete List Cheap" + completeListCheap);
+        System.out.println(curIndex);
+        System.out.println();
+        for(int i = 0; i < (completeListCheap.size() - 1); i++){
+            correspondingLines.get(completeListCheap.get(i)).get(completeListCheap.get(i+1)).setStroke(Color.DARKGREEN);
+            System.out.println("Coloring line" + i);
         }
     }
     @FXML
