@@ -9,12 +9,27 @@ import javafx.stage.Stage;
 import javafx.scene.control.ChoiceBox;
 import models.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+
+
 public class Main extends Application {
+
+//    Make one array that consist of all Cost
+    public double[] GenerateNumbers(long seed, int amount) {
+        double[] randomList = new double[amount];
+        for (int i=0;i<amount;i++) {
+            Random generator = new Random(seed);
+            randomList[i] = (generator.nextInt(41)+10)*10;
+            seed--;
+        }
+        return randomList;
+    }
+
     //make the distance each country to the other using arraylist
     static ArrayList<Integer>indonesiaDistance = new ArrayList<Integer>(Arrays.asList(0,882,1167,1531,1877,2806,2312,2788,1976,1689));
     static ArrayList<Integer>singaporeDistance = new ArrayList<Integer>(Arrays.asList(882,0,313,1292,1371,1196,1433,2391,1146,1156));
@@ -57,9 +72,19 @@ public class Main extends Application {
 
 
 
+
+
 //        initialize random object to use for generate a random price between 100-500
         Random random = new Random();
 
+        double[] cost = GenerateNumbers(1,90);
+
+        System.out.println("Price List for all Airporth with destination");
+        for(int i=0;i<cost.length;i+=9){
+            System.out.println(Arrays.toString(Arrays.copyOfRange(cost, i, Math.min(cost.length,i+9))));
+        }
+
+        int costCounter =0;
 //        initialize destination
         for (int i =0 ; i<country.size() ;  i++) {
             dg.addDestination(new Destination(country.get(i)));
@@ -71,7 +96,8 @@ public class Main extends Application {
                     continue;
                 }
                 else {
-                    dg.setDistanceAndCost(i, j, distanceList.get(i).get(j),(random.nextInt(41)+10)*10);
+                    dg.setDistanceAndCost(i, j, distanceList.get(i).get(j),cost[costCounter]);
+                    costCounter++;
                 }
             }
         }
@@ -80,6 +106,7 @@ public class Main extends Application {
         {
             System.out.println(i + " " + pathTable[0][i] + " " + pathTable[1][i]);
         }
+
         //Loads the UI and the positions of the widgets
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         //Sets title of the program
