@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.datatransfer.SystemFlavorMap;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.text.*;
 
 import javafx.scene.control.ComboBox;
 
@@ -102,6 +103,11 @@ public class Controller {
     Line myanToNam = new Line();
     @FXML
     ImageView map = new ImageView();
+    @FXML
+    Text totalCostText = new Text();
+    @FXML
+    Text totalDistanceText = new Text();
+
     HashMap<Integer, HashMap<Integer, Line>> correspondingLines = new HashMap<>();
     ArrayList<Line> allLines = new ArrayList<>();
 
@@ -250,6 +256,14 @@ public class Controller {
         hashMaplineLaos.put(7,phToLaos);
         hashMaplineLaos.put(8,cambToLaos);
         correspondingLines.put(9, hashMaplineLaos);
+
+        double[][] indoDestinations = Services.getCheapestCosts(Main.dg, 0);
+
+        for (int i=0; i<Main.dg.getDestinationNames().size(); i++)
+        {
+            System.out.println("Indo Destinations");
+            System.out.println(i + " " + indoDestinations[0][i] + " " + indoDestinations[1][i]);
+        }
     }
     @FXML
     public void CheapButtonClicked() {
@@ -273,34 +287,78 @@ public class Controller {
             }
         }
         double[][] cheapDestinations = Services.getCheapestCosts(Main.dg, fromIndex);
-        for (int i=0; i<Main.dg.getDestinationNames().size(); i++)
-        {
-            System.out.println(i + " " + cheapDestinations[0][i] + " " + cheapDestinations[1][i]);
-        }
+
+
         int curIndex = toIndex;
-        double totalCost = cheapDestinations[0][curIndex];;
+        double totalCost = cheapDestinations[0][curIndex];
+        double totalDistance = 0;
         ArrayList<Integer> completeListCheap = new ArrayList<>();
         completeListCheap.add(curIndex);
         while(curIndex != fromIndex){
             System.out.println("Current Index" + curIndex);
-
-
             curIndex = (int)cheapDestinations[1][curIndex];
             completeListCheap.add(curIndex);
             System.out.println("Current Index" + curIndex);
 
         }
 
+
         System.out.println("Complete List Cheap" + completeListCheap);
         System.out.println(curIndex);
         System.out.println();
         for(int i = 0; i < (completeListCheap.size() - 1); i++){
             correspondingLines.get(completeListCheap.get(i)).get(completeListCheap.get(i+1)).setStroke(Color.DARKGREEN);
+            double[][] distance = Services.getShortestDistances(Main.dg, completeListCheap.get(i));
+            totalDistance = totalDistance + distance[0][completeListCheap.get(i + 1)];
             System.out.println("Coloring line" + i);
         }
+        totalDistanceText.setText(String.valueOf(totalDistance));
+        totalCostText.setText(String.valueOf(totalCost));
     }
     @FXML
     public void FastButtonClicked(){
+        int fromIndex = 0;
+        int toIndex = 0;
+        for(int i = 0; i < allLines.size(); i++){
+            allLines.get(i).setStroke(Color.TRANSPARENT);
+        }
+        for(int i = 0; i < Main.country.size(); i ++){
+            if(fromComboBox.getValue().equals(Main.country.get(i))){
+                fromIndex = i;
+                System.out.println(i);
+                break;
+            }
+        }
+        for(int i = 0; i < Main.country.size(); i++){
+            if(toComboBox.getValue().equals(Main.country.get(i))){
+                toIndex = i;
+                System.out.println(i);
+                break;
+            }
+        }
 
+        double[][] fastDestinations = Services.getShortestDistances(Main.dg, fromIndex);
+
+        for (int i=0; i<Main.dg.getDestinationNames().size(); i++)
+        {
+            System.out.println(i + " " + fastDestinations[0][i] + " " + fastDestinations[1][i]);
+        }
+
+        int curIndex = toIndex;
+        double totalDistance = fastDestinations[0][curIndex];
+        double totalCost = 0;
+        ArrayList<Integer> completeListFast = new ArrayList<>();
+        completeListFast.add(curIndex);
+        while(curIndex != fromIndex){
+            curIndex = (int)fastDestinations[1][curIndex];
+            completeListFast.add(curIndex);
+        }
+        for(int i = 0; i < completeListFast.size() - 1; i++){
+            correspondingLines.get(completeListFast.get(i)).get(completeListFast.get(i + 1)).setStroke(Color.DARKGREEN);
+            double[][] cost = Services.getCheapestCosts(Main.dg, completeListFast.get(i));
+            totalCost = totalCost + cost[0][completeListFast.get(i + 1)];
+        }
+        totalDistanceText.setText(String.valueOf(totalDistance));
+        totalCostText.setText(String.valueOf(totalCost));
     }
 }
