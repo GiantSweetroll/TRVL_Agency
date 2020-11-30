@@ -24,7 +24,7 @@ public class Main extends Application {
         double[] randomList = new double[amount];
         for (int i=0;i<amount;i++) {
             Random generator = new Random(seed);
-            randomList[i] = (generator.nextInt(41)+10)*10;
+            randomList[i] = (generator.nextInt(51)+10)*10;
             seed--;
         }
         ;
@@ -102,28 +102,55 @@ public class Main extends Application {
                 if (i==0 && j==2){
                     continue;
                 }
-                if (i==1 && j==7){
+                if (i==2 && j==0){
+                    continue;
+                }if (i==1 && j==7){
                     continue;
                 }
+                if (i==7 && j==1){
+                    continue;
+                }
+
                 if (i==2 && j==6){
+                    continue;
+                }
+                if (i==6 && j==2){
                     continue;
                 }
                 if (i==2 && j==7){
                     continue;
                 }
+                if (i==7 && j==2){
+                    continue;
+                }
                 if (i==3 && j==4){
+                    continue;
+                }
+                if (i==4 && j==3){
                     continue;
                 }
                 if (i==3 && j==9){
                     continue;
                 }
+                if (i==9 && j==3){
+                    continue;
+                }
                 if (i==8 && j==6){
+                    continue;
+                }
+                if (i==6 && j==8){
                     continue;
                 }
                 if (i==8 && j==4){
                     continue;
                 }
+                if (i==4 && j==8){
+                    continue;
+                }
                 if (i==6 && j==5){
+                    continue;
+                }
+                if (i==5 && j==6){
                     continue;
                 }
                 else {

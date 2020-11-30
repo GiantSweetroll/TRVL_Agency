@@ -70,22 +70,22 @@
     <Line fx:id="myanToNam" endX="209.0" endY="-81.0" layoutX="406.0" layoutY="275.0" startX="331.0" startY="-99.4141845703125" stroke="TRANSPARENT" strokeWidth="2.0" />
    <ComboBox fx:id="fromComboBox" layoutX="134.0" layoutY="229.0" prefWidth="150.0" />
    <ComboBox fx:id="toComboBox" layoutX="135.0" layoutY="359.0" prefWidth="150.0" />
-   <Text layoutX="38.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Cost:">
+   <Text layoutX="53.0" layoutY="648.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Cost:">
       <font>
          <Font size="20.0" />
       </font>
    </Text>
-   <Text layoutX="20.0" layoutY="681.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Distance:">
+   <Text layoutX="17.0" layoutY="681.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Distance:">
       <font>
          <Font size="20.0" />
       </font>
    </Text>
-   <Text fx:id="totalCostText" layoutX="176.0" layoutY="652.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000.0">
+   <Text fx:id="totalCostText" layoutX="157.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000.0" textAlignment="CENTER" wrappingWidth="123.94970703125">
       <font>
          <Font size="27.0" />
       </font>
    </Text>
-   <Text fx:id="totalDistanceText" layoutX="176.0" layoutY="683.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000.0">
+   <Text fx:id="totalDistanceText" layoutX="157.0" layoutY="683.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000.0" textAlignment="CENTER" wrappingWidth="123.94970703125">
       <font>
          <Font size="27.0" />
       </font>
