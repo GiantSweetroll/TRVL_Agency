@@ -27,6 +27,7 @@ public class Main extends Application {
             randomList[i] = (generator.nextInt(41)+10)*10;
             seed--;
         }
+        ;
         return randomList;
     }
 
@@ -74,10 +75,11 @@ public class Main extends Application {
 
 
 
+
 //        initialize random object to use for generate a random price between 100-500
         Random random = new Random();
 
-        double[] cost = GenerateNumbers(1,90);
+        double[] cost = GenerateNumbers(2,90);
 
         System.out.println("Price List for all Airporth with destination");
         for(int i=0;i<cost.length;i+=9){
@@ -90,22 +92,62 @@ public class Main extends Application {
             dg.addDestination(new Destination(country.get(i)));
         }
 
+
+
         for (int i = 0 ;  i<country.size();i++){
             for (int j =0 ; j < country.size();j++){
                 if (country.get(i).equals(country.get(j))){
                     continue;
                 }
+                if (i==0 && j==2){
+                    continue;
+                }
+                if (i==1 && j==7){
+                    continue;
+                }
+                if (i==2 && j==6){
+                    continue;
+                }
+                if (i==2 && j==7){
+                    continue;
+                }
+                if (i==3 && j==4){
+                    continue;
+                }
+                if (i==3 && j==9){
+                    continue;
+                }
+                if (i==8 && j==6){
+                    continue;
+                }
+                if (i==8 && j==4){
+                    continue;
+                }
+                if (i==6 && j==5){
+                    continue;
+                }
                 else {
                     dg.setDistanceAndCost(i, j, distanceList.get(i).get(j),cost[costCounter]);
                     costCounter++;
+
                 }
             }
+        }
+        System.out.println(dg.getDistance(0,2));
+        for (ArrayList<Double> sub : dg.getCostMatrix())
+        {
+            for (Double d : sub)
+            {
+                System.out.print(d + " ");
+            }
+            System.out.println();
         }
         double[][] pathTable = Services.getShortestDistances(dg, 1 );
         for (int i=0; i<dg.getDestinationNames().size(); i++)
         {
             System.out.println(i + " " + pathTable[0][i] + " " + pathTable[1][i]);
         }
+
 
         //Loads the UI and the positions of the widgets
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
