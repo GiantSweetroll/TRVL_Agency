@@ -45,5 +45,7 @@ public class Experiment {
     }
 
     long timeEnd = System.nanoTime();
+    long elapsedTime = timeEnd - timeStart;
+
 
 }
