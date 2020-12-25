@@ -169,31 +169,48 @@ public class Experiment {
         System.out.println("Done!");
     }
 
-    public static void executeExperiment(int vertexCount, int edgesCount, double[][] adjMatrix, double[][] rowMatrix, String fileName) throws IOException
+    public static void executeExperiment(int vertexCount, int edgesCount, double[][] adjMatrix, double[][] rowMatrix, String fileName, int trials) throws IOException
     {
         System.out.println("Experimenting on " + vertexCount + " vertices and " + edgesCount + " edges...");
+        double timeStart;
+        double timeStop;
         ///Dijkstra
-        long dijkstra = 0;
+        double[] dijkstra = new double[trials];
         Dijkstra dj = new Dijkstra(adjMatrix);
-        //Start time
-        long timeStart = System.nanoTime();
-        //Start experiment
-        dj.compute(0);      //We will just start from the first vertex
-        //Stop time
-        long timeStop = System.nanoTime();
-        //Gather time interval
-        dijkstra = timeStop - timeStart;
+        for (int i=0; i<trials; i++)
+        {
+            double timeTaken;
+            //Start time
+            timeStart = System.nanoTime();
+            //Start experiment
+            dj.compute(0);      //We will just start from the first vertex
+            //Stop time
+            timeStop = System.nanoTime();
+            //Gather time interval
+            timeTaken = (timeStop - timeStart) * Math.pow(10, -6);
+            //Add it to array
+            dijkstra[i] = timeTaken;
+        }
+        double dijkstraAvg = getAverage(dijkstra);
 
         ///Bellman-Ford
-        long bellman = 0;
+        double bellman[] = new double[trials];
         BellmanFord bf = new BellmanFord(rowMatrix, adjMatrix.length);
-        //Start time
-        timeStart = System.nanoTime();
-        //Start experiment
-        bf.compute(0);      //We will just start from the first vertex
-        //Stop time
-        timeStop = System.nanoTime();
-        bellman = timeStop - timeStart;
+        for (int i=0; i<trials; i++)
+        {
+            double timeTaken;
+            //Start time
+            timeStart = System.nanoTime();
+            //Start experiment
+            bf.compute(0);      //We will just start from the first vertex
+            //Stop time
+            timeStop = System.nanoTime();
+            //Gather time interval
+            timeTaken = (timeStop - timeStart) * Math.pow(10, -6);
+            //Add it to array
+            bellman[i] = timeTaken;
+        }
+        double bellmanAvg = getAverage(bellman);
 
         //Export to file
         File file = new File("./" + fileName + ".txt");
@@ -207,10 +224,21 @@ public class Experiment {
         }
 
         BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
-        bw.write(vertexCount + " " + edgesCount + " " + dijkstra + " " + bellman);
+        bw.write(vertexCount + " " + edgesCount + " " + dijkstraAvg + " " + bellmanAvg);
         bw.newLine();
         bw.close();
         System.out.println("Done!");
+    }
+
+    private static double getAverage(double[] values)
+    {
+        double total = 0;
+        for (double val : values)
+        {
+            total += val;
+        }
+
+        return total/values.length;
     }
 
     public static void main(String args[])
@@ -230,15 +258,44 @@ public class Experiment {
 //        generateSamples(10000, (int)Math.pow(10000, 2)-10000);
 
         //Conduct Experiment
+        int trials = 100;
         System.out.println("Conducting experiment...");
         try
         {
+            //Vertex experiment
+            System.out.println("Conducting vertex experiment...");
             for (int i=1; i<=4; i++)
             {
                 int vertex = (int)Math.pow(10, i);
                 int edges = 90;
-                List<ArrayList<Double>> sample = getSample(generateName(vertex, edges));
-                executeExperiment(vertex, edges, Services.convert2DListToArray(sample), Services.convertAdjMatrixToRowGraphMatrix(sample), "Experiment_Vertex");
+                String fileName = generateName(vertex, edges);
+                System.out.println("Loading file " + fileName + "....");
+                List<ArrayList<Double>> sample = getSample(fileName);
+                executeExperiment(vertex, edges, Services.convert2DListToArray(sample), Services.convertAdjMatrixToRowGraphMatrix(sample), "Experiment_Vertex", trials);
+            }
+
+            //Edges experiment
+            System.out.println("Conducting edges experiment...");
+            for (int i=1; i<=4; i++)
+            {
+                int vertex = 10000;
+                int edges = (int)Math.pow(10, i);
+                String fileName = generateName(vertex, edges);
+                System.out.println("Loading file " + fileName + "....");
+                List<ArrayList<Double>> sample = getSample(fileName);
+                executeExperiment(vertex, edges, Services.convert2DListToArray(sample), Services.convertAdjMatrixToRowGraphMatrix(sample), "Experiment_Edges", trials);
+            }
+
+            //Square matrix experiment
+            System.out.println("Conducting square matrix experiment...");
+            for (int i=1; i<=4; i++)
+            {
+                int vertex = (int)Math.pow(10, i);
+                int edges = (int)Math.pow(vertex, 2) - vertex;
+                String fileName = generateName(vertex, edges);
+                System.out.println("Loading file " + fileName + "....");
+                List<ArrayList<Double>> sample = getSample(fileName);
+                executeExperiment(vertex, edges, Services.convert2DListToArray(sample), Services.convertAdjMatrixToRowGraphMatrix(sample), "Experiment_Square", trials);
             }
         }
         catch(IOException ex)
