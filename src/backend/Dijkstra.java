@@ -73,7 +73,7 @@ public class Dijkstra
     //Private Methods
     private int getIndexOfMinDistance(double[] shortestPaths, boolean[] pathSet)
     {
-        double min = Integer.MAX_VALUE;
+        double min = Double.MAX_VALUE;
         int minIndex = -1;
 
         for (int i = 0; i < this.VERTEX_COUNT; i++)
