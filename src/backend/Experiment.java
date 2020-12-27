@@ -125,7 +125,7 @@ public class Experiment {
                     }
                     else
                     {
-                        if (curEdges < edgesCount && ThreadLocalRandom.current().nextInt(0, vertexCount) == 1)    //Give X% chance of generating an edge just because :)
+                        if (curEdges < edgesCount && ThreadLocalRandom.current().nextInt(0, vertexCount) == 1)    //Give X% chance of generating an edge to distribute the edges across the other vertices
                         {
                             bw.write(Math.round(ThreadLocalRandom.current().nextDouble(minDist, maxDist+1d)) + " ");
                             curEdges++;
