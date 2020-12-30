@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <ImageView fx:id="map" fitHeight="659.0" fitWidth="747.0" layoutX="507.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -15,8 +12,8 @@
             <Image url="@../images/ASEAN-map.jpg" />
         </image>
     </ImageView>
-    <Button fx:id="CheapButton" layoutX="176.0" layoutY="471.0" mnemonicParsing="false" onAction="#CheapButtonClicked" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="Cheapest" />
-    <Button fx:id="FastButton" layoutX="183.0" layoutY="575.0" mnemonicParsing="false" onAction="#FastButtonClicked" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="Fastest" />
+    <Button fx:id="CheapButton" layoutX="68.0" layoutY="473.0" mnemonicParsing="false" onAction="#CheapButtonClicked" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="Cheapest" />
+    <Button fx:id="FastButton" layoutX="268.0" layoutY="473.0" mnemonicParsing="false" onAction="#FastButtonClicked" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="Fastest" />
     <Text layoutX="30.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRVL-ing" wrappingWidth="357.13671875">
         <font>
             <Font size="89.0" />
@@ -70,24 +67,34 @@
     <Line fx:id="myanToNam" endX="209.0" endY="-81.0" layoutX="406.0" layoutY="275.0" startX="331.0" startY="-99.4141845703125" stroke="TRANSPARENT" strokeWidth="2.0" />
    <ComboBox fx:id="fromComboBox" layoutX="134.0" layoutY="229.0" prefWidth="150.0" />
    <ComboBox fx:id="toComboBox" layoutX="135.0" layoutY="359.0" prefWidth="150.0" />
-   <Text layoutX="53.0" layoutY="648.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Cost:">
+   <Text layoutX="60.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Cost:">
       <font>
          <Font size="20.0" />
       </font>
    </Text>
-   <Text layoutX="17.0" layoutY="681.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Distance:">
+   <Text layoutX="24.0" layoutY="606.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Distance:">
       <font>
          <Font size="20.0" />
       </font>
    </Text>
-   <Text fx:id="totalCostText" layoutX="157.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000.0" textAlignment="CENTER" wrappingWidth="123.94970703125">
+   <Text fx:id="totalCostText" layoutX="157.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000.0" textAlignment="CENTER" wrappingWidth="123.94970703125">
       <font>
          <Font size="27.0" />
       </font>
    </Text>
-   <Text fx:id="totalDistanceText" layoutX="157.0" layoutY="683.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000.0" textAlignment="CENTER" wrappingWidth="123.94970703125">
+   <Text fx:id="totalDistanceText" layoutX="157.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="000.0" textAlignment="CENTER" wrappingWidth="123.94970703125">
       <font>
          <Font size="27.0" />
       </font>
    </Text>
+   <Label layoutX="167.0" layoutY="542.0" text="\$">
+      <font>
+         <Font size="27.0" />
+      </font>
+   </Label>
+   <Label layoutX="265.0" layoutY="582.0" text="KM">
+      <font>
+         <Font size="27.0" />
+      </font>
+   </Label>
 </AnchorPane>

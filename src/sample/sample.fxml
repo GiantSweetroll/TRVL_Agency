@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <ImageView fx:id="map" fitHeight="659.0" fitWidth="747.0" layoutX="507.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@../images/ASEAN-map.jpg" />
@@ -87,4 +87,14 @@
          <Font size="27.0" />
       </font>
    </Text>
+   <Label layoutX="167.0" layoutY="542.0" text="\$">
+      <font>
+         <Font size="27.0" />
+      </font>
+   </Label>
+   <Label layoutX="265.0" layoutY="582.0" text="KM">
+      <font>
+         <Font size="27.0" />
+      </font>
+   </Label>
 </AnchorPane>
