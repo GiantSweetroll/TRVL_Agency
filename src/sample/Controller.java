@@ -107,6 +107,8 @@ public class Controller {
     Text totalCostText = new Text();
     @FXML
     Text totalDistanceText = new Text();
+    @FXML
+    Text visitedDestinations = new Text();
 
     HashMap<Integer, HashMap<Integer, Line>> correspondingLines = new HashMap<>();
     ArrayList<Line> allLines = new ArrayList<>();
@@ -269,6 +271,7 @@ public class Controller {
     public void CheapButtonClicked() {
         int fromIndex = 0;
         int toIndex = 0;
+        ArrayList<String> destinationsVisited = new ArrayList<>();
         for(int i = 0; i < allLines.size(); i++){
             allLines.get(i).setStroke(Color.TRANSPARENT);
         }
@@ -302,7 +305,6 @@ public class Controller {
 
         }
 
-
         System.out.println("Complete List Cheap" + completeListCheap);
         System.out.println(curIndex);
         System.out.println();
@@ -310,15 +312,23 @@ public class Controller {
             correspondingLines.get(completeListCheap.get(i)).get(completeListCheap.get(i+1)).setStroke(Color.DARKGREEN);
             double[][] distance = Services.getShortestDistances(Main.dg, completeListCheap.get(i));
             totalDistance = totalDistance + distance[0][completeListCheap.get(i + 1)];
-            System.out.println("Coloring line" + i);
+            destinationsVisited.add(Main.country.get(completeListCheap.get(i)));
         }
         totalDistanceText.setText(String.valueOf(totalDistance));
         totalCostText.setText(String.valueOf(totalCost));
+        destinationsVisited.add(Main.country.get(fromIndex));
+
+        String allVisited = destinationsVisited.get(destinationsVisited.size() - 1);
+        for(int i = destinationsVisited.size() - 2 ; i > -1; i--){
+            allVisited = allVisited + " -> " + destinationsVisited.get(i);
+        }
+        visitedDestinations.setText(allVisited);
     }
     @FXML
     public void FastButtonClicked(){
         int fromIndex = 0;
         int toIndex = 0;
+        ArrayList<String> destinationsVisited = new ArrayList<>();
         for(int i = 0; i < allLines.size(); i++){
             allLines.get(i).setStroke(Color.TRANSPARENT);
         }
@@ -357,8 +367,17 @@ public class Controller {
             correspondingLines.get(completeListFast.get(i)).get(completeListFast.get(i + 1)).setStroke(Color.DARKGREEN);
             double[][] cost = Services.getCheapestCosts(Main.dg, completeListFast.get(i));
             totalCost = totalCost + cost[0][completeListFast.get(i + 1)];
+            destinationsVisited.add(Main.country.get(completeListFast.get(i)));
         }
         totalDistanceText.setText(String.valueOf(totalDistance));
         totalCostText.setText(String.valueOf(totalCost));
+        destinationsVisited.add(Main.country.get(fromIndex));
+
+        String allVisited = destinationsVisited.get(destinationsVisited.size() - 1);
+        for(int i = destinationsVisited.size() - 2 ; i > -1; i--){
+            allVisited = allVisited + " -> " + destinationsVisited.get(i);
+        }
+        visitedDestinations.setText(allVisited);
     }
+
 }
