@@ -1,10 +1,12 @@
 package sample;
 
+import backend.Dijkstra;
 import backend.Services;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.ChoiceBox;
 import models.*;
@@ -19,12 +21,12 @@ import java.util.Random;
 
 public class Main extends Application {
 
-//    Make one array that consist of all Cost
+    //    Make one array that consist of all Cost
     public double[] GenerateNumbers(long seed, int amount) {
         double[] randomList = new double[amount];
-        for (int i=0;i<amount;i++) {
+        for (int i = 0; i < amount; i++) {
             Random generator = new Random(seed);
-            randomList[i] = (generator.nextInt(51)+10)*10;
+            randomList[i] = (generator.nextInt(51) + 10) * 10;
             seed--;
         }
         ;
@@ -32,25 +34,27 @@ public class Main extends Application {
     }
 
     //make the distance each country to the other using arraylist
-    static ArrayList<Integer>indonesiaDistance = new ArrayList<Integer>(Arrays.asList(0,882,1167,1531,1877,2806,2312,2788,1976,1689));
-    static ArrayList<Integer>singaporeDistance = new ArrayList<Integer>(Arrays.asList(882,0,313,1292,1371,1196,1433,2391,1146,1156));
-    static ArrayList<Integer>malaysiaDistance = new ArrayList<Integer>(Arrays.asList(1167,313,0,1479,2043,1643,1189,2466,999,1655));
-    static ArrayList<Integer>bruneiDistance = new ArrayList<Integer>(Arrays.asList(1531,1292,1479,0,2041,2440,1859,1260,1331,1979));
-    static ArrayList<Integer>vietnamDistance = new ArrayList<Integer>(Arrays.asList(1887,2206,2043,2041,0,1126,990,1756,1060,486));
-    static ArrayList<Integer>myanmarDistance = new ArrayList<Integer>(Arrays.asList(2806,1643,1925,2440,1126,0,583,2674,1108,693));
-    static ArrayList<Integer>thailandDistance = new ArrayList<Integer>(Arrays.asList(2312,1433,1189,1859,990,583,0,2211,529,519));
-    static ArrayList<Integer>philippinesDistance = new ArrayList<Integer>(Arrays.asList(2788,2391,2468,1260,1756,2674,2211,0,1781,2005));
-    static ArrayList<Integer>cambodiaDistance = new ArrayList<Integer>(Arrays.asList(1976,1146,999,1331,1060,1108,529,1781,0,756));
-    static ArrayList<Integer>laosDistance = new ArrayList<Integer>(Arrays.asList(2719,1861,1655,1979,486,693,519,2005,756,0));
+    static ArrayList<Integer> indonesiaDistance = new ArrayList<Integer>(Arrays.asList(0, 882, 1167, 1531, 1877, 2806, 2312, 2788, 1976, 1689));
+    static ArrayList<Integer> singaporeDistance = new ArrayList<Integer>(Arrays.asList(882, 0, 313, 1292, 1371, 1196, 1433, 2391, 1146, 1156));
+    static ArrayList<Integer> malaysiaDistance = new ArrayList<Integer>(Arrays.asList(1167, 313, 0, 1479, 2043, 1643, 1189, 2466, 999, 1655));
+    static ArrayList<Integer> bruneiDistance = new ArrayList<Integer>(Arrays.asList(1531, 1292, 1479, 0, 2041, 2440, 1859, 1260, 1331, 1979));
+    static ArrayList<Integer> vietnamDistance = new ArrayList<Integer>(Arrays.asList(1887, 2206, 2043, 2041, 0, 1126, 990, 1756, 1060, 486));
+    static ArrayList<Integer> myanmarDistance = new ArrayList<Integer>(Arrays.asList(2806, 1643, 1925, 2440, 1126, 0, 583, 2674, 1108, 693));
+    static ArrayList<Integer> thailandDistance = new ArrayList<Integer>(Arrays.asList(2312, 1433, 1189, 1859, 990, 583, 0, 2211, 529, 519));
+    static ArrayList<Integer> philippinesDistance = new ArrayList<Integer>(Arrays.asList(2788, 2391, 2468, 1260, 1756, 2674, 2211, 0, 1781, 2005));
+    static ArrayList<Integer> cambodiaDistance = new ArrayList<Integer>(Arrays.asList(1976, 1146, 999, 1331, 1060, 1108, 529, 1781, 0, 756));
+    static ArrayList<Integer> laosDistance = new ArrayList<Integer>(Arrays.asList(2719, 1861, 1655, 1979, 486, 693, 519, 2005, 756, 0));
 
     //make an arraylist to store each contry distance list
-    static ArrayList<ArrayList<Integer>>distanceList = new ArrayList<ArrayList<Integer>>(Arrays.asList(indonesiaDistance,singaporeDistance,malaysiaDistance,bruneiDistance,vietnamDistance,myanmarDistance,thailandDistance,philippinesDistance,cambodiaDistance,laosDistance));
+    static ArrayList<ArrayList<Integer>> distanceList = new ArrayList<ArrayList<Integer>>(Arrays.asList(indonesiaDistance, singaporeDistance, malaysiaDistance, bruneiDistance, vietnamDistance, myanmarDistance, thailandDistance, philippinesDistance, cambodiaDistance, laosDistance));
+
     public static void main() {
         launch();
     }
 
     static DestinationGraph dg = new DestinationGraph();
-    static ArrayList<String>country = new ArrayList<String>();
+    static ArrayList<String> country = new ArrayList<String>();
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -69,110 +73,85 @@ public class Main extends Application {
         country.add("Laos");
 
 
-
-
-
-
-
-
-
 //        initialize random object to use for generate a random price between 100-500
         Random random = new Random();
 
-        double[] cost = GenerateNumbers(2,90);
+        double[] cost = GenerateNumbers(2, 90);
 
-        System.out.println("Price List for all Airporth with destination");
-        for(int i=0;i<cost.length;i+=9){
-            System.out.println(Arrays.toString(Arrays.copyOfRange(cost, i, Math.min(cost.length,i+9))));
-        }
 
-        int costCounter =0;
+
+        int costCounter = 0;
 //        initialize destination
-        for (int i =0 ; i<country.size() ;  i++) {
+        for (int i = 0; i < country.size(); i++) {
             dg.addDestination(new Destination(country.get(i)));
         }
 
 
+        for (int i = 0; i < country.size(); i++) {
+            for (int j = 0; j < country.size(); j++) {
+                if (country.get(i).equals(country.get(j))) {
+                    continue;
+                }
+                if (i == 0 && j == 2) {
+                    continue;
+                }
+                if (i == 2 && j == 0) {
+                    continue;
+                }
+                if (i == 1 && j == 7) {
+                    continue;
+                }
+                if (i == 7 && j == 1) {
+                    continue;
+                }
 
-        for (int i = 0 ;  i<country.size();i++){
-            for (int j =0 ; j < country.size();j++){
-                if (country.get(i).equals(country.get(j))){
+                if (i == 2 && j == 6) {
                     continue;
                 }
-                if (i==0 && j==2){
+                if (i == 6 && j == 2) {
                     continue;
                 }
-                if (i==2 && j==0){
-                    continue;
-                }if (i==1 && j==7){
+                if (i == 2 && j == 7) {
                     continue;
                 }
-                if (i==7 && j==1){
+                if (i == 7 && j == 2) {
                     continue;
                 }
-
-                if (i==2 && j==6){
+                if (i == 3 && j == 4) {
                     continue;
                 }
-                if (i==6 && j==2){
+                if (i == 4 && j == 3) {
                     continue;
                 }
-                if (i==2 && j==7){
+                if (i == 3 && j == 9) {
                     continue;
                 }
-                if (i==7 && j==2){
+                if (i == 9 && j == 3) {
                     continue;
                 }
-                if (i==3 && j==4){
+                if (i == 8 && j == 6) {
                     continue;
                 }
-                if (i==4 && j==3){
+                if (i == 6 && j == 8) {
                     continue;
                 }
-                if (i==3 && j==9){
+                if (i == 8 && j == 4) {
                     continue;
                 }
-                if (i==9 && j==3){
+                if (i == 4 && j == 8) {
                     continue;
                 }
-                if (i==8 && j==6){
+                if (i == 6 && j == 5) {
                     continue;
                 }
-                if (i==6 && j==8){
+                if (i == 5 && j == 6) {
                     continue;
-                }
-                if (i==8 && j==4){
-                    continue;
-                }
-                if (i==4 && j==8){
-                    continue;
-                }
-                if (i==6 && j==5){
-                    continue;
-                }
-                if (i==5 && j==6){
-                    continue;
-                }
-                else {
-                    dg.setDistanceAndCost(i, j, distanceList.get(i).get(j),cost[costCounter]);
+                } else {
+                    dg.setDistanceAndCost(i, j, distanceList.get(i).get(j), cost[costCounter]);
                     costCounter++;
 
                 }
             }
-        }
-        System.out.println(dg.getDistance(0,2));
-        for (ArrayList<Double> sub : dg.getCostMatrix())
-        {
-            for (Double d : sub)
-            {
-                System.out.print(d + " ");
-            }
-            System.out.println();
-        }
-        double[][] pathTable = Services.getShortestDistances(dg, 1 );
-        for (int i=0; i<dg.getDestinationNames().size(); i++)
-        {
-            System.out.println(i + " " + pathTable[0][i] + " " + pathTable[1][i]);
         }
 
 
@@ -183,5 +162,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1280, 720));
         //Shows the application window
         primaryStage.show();
+
+
     }
 }
