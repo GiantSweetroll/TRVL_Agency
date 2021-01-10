@@ -290,11 +290,11 @@ public class Controller {
             }
         }
         double[][] cheapDestinations = Services.getCheapestCosts(Main.dg, fromIndex);
-
+        double[][] fastDestinations = Services.getShortestDistances(Main.dg, fromIndex);
 
         int curIndex = toIndex;
         double totalCost = cheapDestinations[0][curIndex];
-        double totalDistance = 0;
+        double totalDistance = fastDestinations[0][curIndex];
         ArrayList<Integer> completeListCheap = new ArrayList<>();
         completeListCheap.add(curIndex);
         while(curIndex != fromIndex){
@@ -348,6 +348,7 @@ public class Controller {
         }
 
         double[][] fastDestinations = Services.getShortestDistances(Main.dg, fromIndex);
+        double[][] cheapDestinations = Services.getCheapestCosts(Main.dg, fromIndex);
 
         for (int i=0; i<Main.dg.getDestinationNames().size(); i++)
         {
@@ -356,7 +357,7 @@ public class Controller {
 
         int curIndex = toIndex;
         double totalDistance = fastDestinations[0][curIndex];
-        double totalCost = 0;
+        double totalCost = cheapDestinations[0][curIndex];
         ArrayList<Integer> completeListFast = new ArrayList<>();
         completeListFast.add(curIndex);
         while(curIndex != fromIndex){
